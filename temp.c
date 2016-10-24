@@ -14,7 +14,7 @@
 Config configstruct;
 pthread_t * threads;
 int * threadsid;
-
+int socket;
 void cria_pool_threads();
 void destroi_pool_threads();
 void * worker();
@@ -23,7 +23,7 @@ int main(){
 	le_ficheiro(configstruct);
 	printf("(((((((  --  %d ----_",configstruct.nthreads);
 	cria_pool_threads(configstruct.nthreads);
-
+	socket = fireup(configstruct.porto);
 	destroi_pool_threads(configstruct.nthreads);
 
 	return 0;
