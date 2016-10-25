@@ -1,21 +1,16 @@
 #include "ficheiros.h"
 
 
-int le_ficheiro(Config  config){
+int le_ficheiro(){
+	Config * config;
 	ListaAut lista;
 	ListaAut aux;
 	FILE *f;
 	char str[100];
 	ListaAut c;
 	lista =  (ListaAut) malloc(sizeof(ListaAut_node));
-	
-
-	//lista.comp=NULL;
+	config = (Config*)shmat(shmid,NULL,0);
 	lista->next=NULL;
-	/*c->comp=NULL;
-	c->next=NULL;*/
-
-
 	f= fopen("config.txt","r");
 	if(!f){
 		printf("Erro na leitura do ficheiro 'config.txt'!!!\n");
@@ -23,11 +18,9 @@ int le_ficheiro(Config  config){
 	}
 	if(fgets(str,100,f)!=NULL){
 			strtok(str, "=");
-			
-			config->porto= atoi(strtok(NULL,"\n"));
+			config->porto = atoi(strtok(NULL,"\n"));
 
 					}
-	
 	if(fgets(str,100,f)!=NULL){
 		strtok(str,"=");
 		strcpy(config->scheduling,strtok(NULL,"\n"));
@@ -37,7 +30,6 @@ int le_ficheiro(Config  config){
 		strtok(str,"=");
 		config->nthreads= atoi(strtok(NULL,"\n"));
 		
-
 	}
 	if(fgets(str,100,f)!=NULL){
 		strtok(str,"=");
@@ -70,7 +62,7 @@ int le_ficheiro(Config  config){
 	printf("Numero =%d\n",config->nthreads );
 	printf("Allowed=");
 	aux = config->listaAll;
-	while(aux->next!=NULL){
+	while(aux != NULL){
 		printf("%s;",aux->comp );
 		aux = aux->next;
 	}
