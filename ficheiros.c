@@ -11,7 +11,7 @@ int le_ficheiro(){
 	lista =  (ListaAut) malloc(sizeof(ListaAut_node));
 	config = (Config*)shmat(shmid,NULL,0);
 	lista->next=NULL;
-	f= fopen("config.txt","r");
+	f= fopen(CONFIG_FILE_NAME ,"r");
 	if(!f){
 		printf("Erro na leitura do ficheiro 'config.txt'!!!\n");
 		return -1 ; /*retorna -1 em caso de erro*/
